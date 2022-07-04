@@ -246,6 +246,7 @@ const deleteByBlogId = async function (req, res) {
 const deleteBlogbyquery = async function (req, res) {
   try {
     let data = req.query
+    console.log(data)
 
 
     if (!Object.keys(data).length)
@@ -266,6 +267,12 @@ const deleteBlogbyquery = async function (req, res) {
       }
     }
 
+    if(data.tags){
+      if(!isValid(data.tags)){
+        res.status(400).send({status:false,msg:"Invalid tags"})
+      }
+    }
+
     if (data.authorId) {
       if (!data.authorId) return res.status(400).send({ status: false, msg: 'Author Id must be present' })
 
@@ -279,7 +286,7 @@ const deleteBlogbyquery = async function (req, res) {
 
 
 
-    let blogs = await blogModel.updateMany({ data, isDeleted: false, isPublished: false }, { isDeleted: true, deletedAt: Date.now() }, { new: true })
+    let blogs = await blogModel.updateMany(  {data, isDeleted: false, isPublished: false }, { isDeleted: true, deletedAt: Date.now() }, { new: true })
 
     if (!blogs.modifiedCount)
       return res.status(404).send({ status: false, msg: "No documents Found" })
