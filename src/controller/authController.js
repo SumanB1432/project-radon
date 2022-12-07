@@ -21,6 +21,7 @@ const createAuthor = async function (req, res) {
 
         let data = req.body
         let emailGet = req.body.email
+        console.log(emailGet)
 
         if (!Object.keys(data).length) { return res.status(400).send({ status: false, msg: "You must enter data." }) }
 
@@ -41,7 +42,7 @@ const createAuthor = async function (req, res) {
 
         let validEmail = await authorModel.findOne({ email: emailGet })
         // console.log(validEmail, 41)
-        if (validEmail) return res.status(400).send({ status: false, msg: `${email} Already email exist ` })
+        if (validEmail) return res.status(400).send({ status: false, msg: `${emailGet} Already email exist ` })
 
         if (!isValid(data.pasword)) { return res.status(400).send({ status: false, msg: "password is mandatory" }) }
 
