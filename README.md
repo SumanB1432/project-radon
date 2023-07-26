@@ -3,6 +3,7 @@
 Repository for backend cohort - Radon
 
 ## Blogging Site Mini Project Requirement
+- Start Command:- `npm start`
 
 ## Phase I
 
